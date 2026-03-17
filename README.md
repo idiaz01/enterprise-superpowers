@@ -122,6 +122,17 @@ Quality gates, auto-formatting, TypeScript checking, console.log detection, git 
 ### MCP Servers (~30 configs)
 Pre-configured MCP server definitions for GitHub, AWS, Terraform, Notion, Slack, Confluence, Grafana, Sentry, Supabase, ClickHouse, Playwright, and more.
 
+## After Generation
+
+Once `init` completes, follow the steps in the generated plugin's `README.md`:
+
+1. **Install the plugin** — `claude plugin add ./<company>-superpowers`
+2. **Restart Claude Code** — Close and reopen so the plugin loads
+3. **Configure MCP credentials** — Open `.mcp.json` and replace `YOUR_*_HERE` placeholders with your actual API tokens (GitHub PAT, Slack bot token, AWS profile, etc.)
+4. **Remove unused MCP servers** — Keep under 10 active to preserve context window
+5. **Review hooks** — Check `hooks/hooks.json` and disable any hooks you don't need
+6. **Test** — Run `/tdd`, `/code-review`, or `/plan` in a Claude Code session to verify
+
 ## Design System
 
 Enterprise Superpowers bakes your company's visual identity into every generated artifact. When Claude creates presentations, HTML prototypes, or documentation, it uses your:
