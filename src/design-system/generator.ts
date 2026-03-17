@@ -12,6 +12,7 @@ export async function generateDesignSystem(
 ): Promise<void> {
   await writeDesignSystem(projectDir, designSystem)
   await generateDesignSystemSkill(projectDir, context)
+  await generateDesignSystemRule(projectDir, context)
   await copyLogoFiles(projectDir, designSystem)
 }
 
@@ -32,6 +33,22 @@ async function generateDesignSystemSkill(
     'company-design-system',
     'SKILL.md',
   )
+
+  await renderTemplateFile(templatePath, outputPath, context)
+}
+
+async function generateDesignSystemRule(
+  projectDir: string,
+  context: TemplateContext,
+): Promise<void> {
+  const templatePath = path.join(
+    getTemplatesRoot(import.meta.dirname),
+    'skills',
+    'design-system',
+    'rule.md.hbs',
+  )
+
+  const outputPath = path.join(projectDir, 'rules', 'design-system.md')
 
   await renderTemplateFile(templatePath, outputPath, context)
 }

@@ -1,0 +1,22 @@
+# {{companyName}} Design System — Mandatory Rule
+
+When generating any visual artifact (HTML, CSS, presentations, prototypes, diagrams, emails, or branded documents), you MUST use the {{companyName}} design system.
+
+## Quick Reference
+
+**Colors:**
+{{#each designSystem.colors}}
+- {{this.name}}: `{{this.hex}}`
+{{/each}}
+
+**Fonts:**
+{{#each designSystem.fonts}}
+- {{this.name}}{{#if this.weight}} ({{this.weight}}){{/if}}
+{{/each}}
+
+## Rules
+
+1. Never use arbitrary colors or fonts — always use the brand palette above.
+2. Use CSS custom properties (`--color-primary`, `--color-secondary`, etc.) instead of hardcoded hex values.
+3. Include the company logo in headers, title slides, and document footers.
+4. For the complete design system with CSS variables, slide templates, and usage guidelines, refer to `skills/company-design-system/SKILL.md`.

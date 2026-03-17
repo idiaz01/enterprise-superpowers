@@ -87,6 +87,25 @@ describe('Full init flow (e2e)', () => {
       'utf-8',
     )
     expect(readme).toContain('Acme Corp')
+
+    // Verify CLAUDE.md with design system enforcement
+    const claudeMd = await fs.readFile(
+      path.join(projectDir, 'CLAUDE.md'),
+      'utf-8',
+    )
+    expect(claudeMd).toContain('Acme Corp')
+    expect(claudeMd).toContain('#FF6B00')
+    expect(claudeMd).toContain('MUST')
+    expect(claudeMd).toContain('Inter')
+
+    // Verify design system rule
+    const dsRule = await fs.readFile(
+      path.join(projectDir, 'rules', 'design-system.md'),
+      'utf-8',
+    )
+    expect(dsRule).toContain('Acme Corp')
+    expect(dsRule).toContain('#FF6B00')
+    expect(dsRule).toContain('Never use arbitrary colors')
   })
 
   it('should generate with no integrations selected', async () => {
@@ -105,6 +124,14 @@ describe('Full init flow (e2e)', () => {
       await fs.pathExists(
         path.join(projectDir, 'skills', 'company-design-system', 'SKILL.md'),
       ),
+    ).toBe(true)
+
+    // CLAUDE.md should always be generated
+    expect(await fs.pathExists(path.join(projectDir, 'CLAUDE.md'))).toBe(true)
+
+    // Design system rule should always be generated
+    expect(
+      await fs.pathExists(path.join(projectDir, 'rules', 'design-system.md')),
     ).toBe(true)
 
     // Plugin manifest should exist

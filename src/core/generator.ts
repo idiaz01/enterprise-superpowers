@@ -100,6 +100,12 @@ async function renderBaseTemplates(
     path.join(projectDir, 'README.md'),
     context,
   )
+
+  await renderTemplateFile(
+    path.join(templatesDir, 'CLAUDE.md.hbs'),
+    path.join(projectDir, 'CLAUDE.md'),
+    context,
+  )
 }
 
 async function installIntegrations(

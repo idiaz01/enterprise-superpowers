@@ -18,6 +18,10 @@ Modern frontend patterns for React, Next.js, and performant user interfaces.
 - Handling client-side routing and navigation
 - Building accessible, responsive UI patterns
 
+## Design System Integration
+
+If a `company-design-system` skill exists, apply its brand colors, fonts, and CSS variables to all generated components and UI. Check `skills/company-design-system/SKILL.md` before choosing colors, fonts, or design tokens.
+
 ## Component Patterns
 
 ### Composition Over Inheritance
