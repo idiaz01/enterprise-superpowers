@@ -3,6 +3,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import os from 'os'
 import { generatePlugin } from '../../src/core/generator.js'
+import { VERSION } from '../../src/core/constants.js'
 import type { DesignSystem } from '../../src/core/types.js'
 
 function createTestDesignSystem(): DesignSystem {
@@ -46,7 +47,7 @@ describe('Full init flow (e2e)', () => {
       path.join(projectDir, '.claude-plugin', 'plugin.json'),
     )
     expect(pluginJson.name).toBe('acme-corp-superpowers')
-    expect(pluginJson.version).toBe('0.1.0')
+    expect(pluginJson.version).toBe(VERSION)
 
     // Verify hooks
     const hooksJson = await fs.readJson(
