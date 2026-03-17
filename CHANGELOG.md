@@ -1,0 +1,13 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+
+### Added
+- Initial project setup
+- CLI skeleton with `init`, `add`, `update-styles`, and `list` commands
+- Design system collector and generator
+- 5 MVP integrations: Jira, AWS, Git, Security, Frontend
+- Handlebars template engine
+- Claude Code plugin generation

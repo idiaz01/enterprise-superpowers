@@ -1,0 +1,42 @@
+---
+name: aws-infrastructure
+description: Use when designing, deploying, or troubleshooting AWS infrastructure for {{companyName}}.
+---
+
+# AWS Infrastructure — {{companyName}}
+
+## When to Use
+- Designing cloud architecture or selecting AWS services
+- Writing IaC (CloudFormation, CDK, Terraform for AWS)
+- Debugging CloudWatch logs or AWS service issues
+- IAM policy design and security hardening
+
+## Architecture Principles
+1. **Well-Architected Framework** — Follow the 6 pillars: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, Sustainability
+2. **Least Privilege** — IAM policies should grant minimum required permissions
+3. **Defense in Depth** — Multiple security layers (VPC, SGs, NACLs, WAF)
+4. **Immutable Infrastructure** — Prefer replacement over in-place updates
+
+## Service Selection Guide
+
+| Need | Recommended Service |
+|------|-------------------|
+| Compute | Lambda (serverless), ECS/Fargate (containers), EC2 (VMs) |
+| Storage | S3 (objects), EFS (files), EBS (block) |
+| Database | RDS/Aurora (relational), DynamoDB (NoSQL), ElastiCache (cache) |
+| Messaging | SQS (queues), SNS (pub/sub), EventBridge (events) |
+| Networking | VPC, ALB/NLB, CloudFront (CDN), Route 53 (DNS) |
+
+## Security Checklist
+- [ ] Enable CloudTrail for audit logging
+- [ ] Use AWS Secrets Manager for credentials
+- [ ] Enable VPC Flow Logs
+- [ ] Configure S3 bucket policies (no public access by default)
+- [ ] Enable encryption at rest (KMS)
+- [ ] Use Security Hub for posture management
+
+## Cost Optimization
+- Use Savings Plans or Reserved Instances for predictable workloads
+- Enable Cost Explorer and set billing alerts
+- Right-size instances using Compute Optimizer recommendations
+- Use S3 Intelligent-Tiering for variable access patterns

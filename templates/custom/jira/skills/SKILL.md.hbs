@@ -1,0 +1,34 @@
+---
+name: jira-workflow
+description: Use when working with Jira tickets, sprint planning, backlog analysis, or task management for {{companyName}}.
+---
+
+# Jira Workflow — {{companyName}}
+
+## When to Use
+- User asks to check tasks, review a ticket, or analyze the backlog
+- Working on a feature tied to a Jira ticket (reference ticket ID in commits)
+- Sprint planning or retrospective analysis
+
+## Ticket Reference Convention
+- Always reference Jira tickets in commit messages: `[PROJ-123] feat: description`
+- Link PRs to Jira tickets when creating pull requests
+- Update ticket status after completing work
+
+## Working with Tickets
+1. **Read the ticket** — Understand acceptance criteria, priority, and sprint assignment
+2. **Check linked tickets** — Look for blockers, dependencies, and related work
+3. **Update status** — Move tickets through the workflow as work progresses
+4. **Log time** — Track effort on tickets when applicable
+
+## Sprint Workflow
+- **Planning**: Review unestimated tickets, suggest story points based on complexity
+- **Daily**: Check in-progress tickets, identify blockers
+- **Review**: Verify acceptance criteria are met before moving to Done
+- **Retro**: Analyze velocity and carry-over patterns
+
+## Best Practices
+- Keep ticket descriptions updated with technical decisions
+- Add comments when the approach changes from the original plan
+- Break epics into manageable stories (1-5 story points each)
+- Always include acceptance criteria in user stories

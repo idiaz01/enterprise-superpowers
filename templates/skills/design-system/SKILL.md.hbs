@@ -1,0 +1,65 @@
+---
+name: {{companySlug}}-design-system
+description: {{companyName}} design system with brand colors, fonts, and logo. Use when generating any visual output, presentations, HTML, or branded artifacts.
+---
+
+# {{companyName}} Design System
+
+Use this design system whenever generating visual artifacts, presentations, HTML pages, prototypes, or any branded content for {{companyName}}.
+
+## Brand Colors
+
+| Role | Color | Hex |
+|------|-------|-----|
+{{#each designSystem.colors}}
+| {{this.name}} | <span style="background:{{this.hex}};padding:2px 12px;border-radius:3px;">&nbsp;</span> | `{{this.hex}}` |
+{{/each}}
+
+## Typography
+
+{{#each designSystem.fonts}}
+- **{{this.name}}**{{#if this.weight}} ({{this.weight}}){{/if}}{{#if this.filePath}} - Font file: `assets/fonts/{{this.filePath}}`{{/if}}
+{{/each}}
+
+{{#if designSystem.logos.length}}
+## Logo
+
+{{#each designSystem.logos}}
+- **{{this.type}}**: `assets/logos/{{this.path}}`
+{{/each}}
+
+When generating visual content, include the company logo where appropriate. Use the primary logo for main headers and the icon variant for compact spaces.
+{{/if}}
+
+## Usage Guidelines
+
+When generating visual artifacts for {{companyName}}:
+
+1. **Always use brand colors** - Primary for headers and CTAs, secondary for body content, accent for highlights
+2. **Use specified fonts** - Apply the corporate typography consistently
+3. **Include the logo** - Place it in headers, title slides, and document footers
+4. **Maintain consistency** - All generated content should look like it came from {{companyName}}
+
+## CSS Variables
+
+When generating HTML or web content, use these CSS custom properties:
+
+```css
+:root {
+{{#each designSystem.colors}}
+  --color-{{this.name}}: {{this.hex}};
+{{/each}}
+{{#each designSystem.fonts}}
+  --font-{{@index}}: '{{this.name}}', sans-serif;
+{{/each}}
+}
+```
+
+## Slide Template Defaults
+
+When generating presentations or slides:
+
+- **Title slides**: Use primary color background, white text, centered logo
+- **Content slides**: White background, text color for body, primary for headings
+- **Accent slides**: Accent color for callouts and highlights
+- **Footer**: Company name and logo on every slide

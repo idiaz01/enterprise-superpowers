@@ -1,0 +1,25 @@
+---
+name: snowflake-patterns
+description: Use when working with Snowflake data warehouse, queries, or data pipelines for {{companyName}}.
+---
+
+# Snowflake Patterns — {{companyName}}
+
+## When to Use
+- Writing or optimizing Snowflake SQL queries
+- Designing data warehouse schemas (star/snowflake schema)
+- Managing Snowflake roles, warehouses, and access policies
+
+## Query Patterns
+- Use CTEs for readability over nested subqueries
+- Leverage clustering keys for large tables
+- Use `QUALIFY` for window function filtering
+- Prefer `MERGE` for upsert operations
+- Use `COPY INTO` for bulk data loading
+
+## Best Practices
+- Size warehouses appropriately (auto-suspend, auto-resume)
+- Use resource monitors to control costs
+- Implement row-level security with secure views
+- Use time travel for data recovery (UNDROP, AT/BEFORE)
+- Tag data assets with governance metadata

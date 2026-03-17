@@ -1,0 +1,32 @@
+---
+name: infrastructure-as-code
+description: Use when working with Terraform, AWS CDK, Pulumi, or other IaC tools for {{companyName}}.
+---
+
+# Infrastructure as Code — {{companyName}}
+
+## When to Use
+- Defining cloud infrastructure with Terraform, CDK, or Pulumi
+- Managing state files and backend configurations
+- Reviewing or modifying infrastructure modules
+
+## Terraform Conventions
+- One module per logical component (networking, compute, database)
+- Use variables.tf, outputs.tf, main.tf structure
+- Pin provider versions in required_providers
+- Store state in remote backend (S3, GCS, Azure Blob)
+- Use workspaces or directory structure for environment separation
+
+## AWS CDK Conventions
+- One stack per bounded context
+- Use constructs for reusable patterns
+- Pin CDK version in package.json
+- Run `cdk diff` before `cdk deploy`
+- Use context values for environment-specific config
+
+## Best Practices
+- Always run `terraform plan` / `cdk diff` before applying changes
+- Never store secrets in IaC files — use Secret Manager references
+- Tag all resources with standard labels (env, team, cost-center)
+- Write integration tests for infrastructure modules
+- Document module interfaces with clear input/output descriptions

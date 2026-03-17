@@ -1,0 +1,31 @@
+---
+name: multi-cloud
+description: Use when working with Azure or Google Cloud Platform infrastructure for {{companyName}}.
+---
+
+# Multi-Cloud Patterns — {{companyName}}
+
+## When to Use
+- Designing or deploying Azure or GCP infrastructure
+- Managing cloud resources, networking, or security groups
+- Working with cloud-native services (Azure Functions, Cloud Run, etc.)
+
+## Azure Patterns
+- **Resource Groups** — Organize resources by environment/team
+- **ARM/Bicep Templates** — Infrastructure as Code
+- **Azure DevOps** — CI/CD pipelines
+- **Key Vault** — Secret management
+- **App Service / AKS** — Application hosting
+
+## GCP Patterns
+- **Projects** — Resource isolation boundaries
+- **Deployment Manager / Terraform** — IaC
+- **Cloud Build** — CI/CD
+- **Secret Manager** — Credential storage
+- **Cloud Run / GKE** — Container orchestration
+
+## Best Practices
+- Use service accounts with minimal permissions
+- Enable audit logging on all cloud operations
+- Tag resources with environment, team, and cost-center labels
+- Store cloud credentials in environment variables, never in code

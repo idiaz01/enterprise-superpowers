@@ -1,0 +1,30 @@
+---
+name: ml-engineering
+description: Use when building ML pipelines, deploying models, or implementing forecasting for {{companyName}}.
+---
+
+# ML Engineering — {{companyName}}
+
+## When to Use
+- Building end-to-end ML pipelines (training → serving)
+- Deploying models to production (batch or real-time)
+- Implementing forecasting, recommendation, or classification systems
+
+## Pipeline Patterns
+- **Feature engineering** — Reproducible transformations with feature stores
+- **Training** — Distributed training, hyperparameter optimization
+- **Evaluation** — Automated model validation against holdout sets
+- **Serving** — REST/gRPC endpoints, batch inference, edge deployment
+- **Monitoring** — Data drift, prediction drift, latency tracking
+
+## Deployment Strategies
+- Blue-green deployments for model updates
+- Shadow mode for new models alongside production
+- Canary releases with gradual traffic shifting
+- Rollback procedures with model version pinning
+
+## Best Practices
+- Automate the full train → evaluate → deploy pipeline
+- Use containerized inference for reproducibility
+- Implement circuit breakers for model endpoint failures
+- Log predictions for auditing and retraining
