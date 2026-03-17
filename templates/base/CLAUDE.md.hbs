@@ -1,0 +1,59 @@
+# {{companyName}} Superpowers
+
+This project uses the **{{companyName}} Superpowers** plugin. Follow these rules in every response.
+
+## Design System (MANDATORY)
+
+When generating **any** visual output — HTML pages, presentations, prototypes, diagrams, CSS, emails, or branded documents — you **MUST** apply the {{companyName}} design system:
+
+### Brand Colors
+
+{{#each designSystem.colors}}
+- **{{this.name}}**: `{{this.hex}}`
+{{/each}}
+
+### Typography
+
+{{#each designSystem.fonts}}
+- {{this.name}}{{#if this.weight}} ({{this.weight}}){{/if}}
+{{/each}}
+
+{{#if designSystem.logos.length}}
+### Logo
+
+{{#each designSystem.logos}}
+- {{this.type}}: `assets/logos/{{this.path}}`
+{{/each}}
+
+Include the company logo in headers, title slides, and document footers.
+{{/if}}
+
+### CSS Variables
+
+When writing CSS or HTML, always define and use these custom properties:
+
+```css
+:root {
+{{#each designSystem.colors}}
+  --color-{{this.name}}: {{this.hex}};
+{{/each}}
+{{#each designSystem.fonts}}
+  --font-{{@index}}: '{{this.name}}', sans-serif;
+{{/each}}
+}
+```
+
+### Enforcement
+
+- **Never** use arbitrary colors, fonts, or logos when {{companyName}} brand assets are available.
+- **Always** check `skills/company-design-system/SKILL.md` for the full design system reference before generating visual content.
+- **Always** use the CSS variables above instead of hardcoding color values.
+- When creating presentations, use primary color for title slides, accent for highlights, and include the logo on every slide.
+
+## Available Resources
+
+- **Skills**: See `skills/` for domain-specific capabilities
+- **Agents**: See `agents/` for specialized subagents
+- **Commands**: Use slash commands like `/tdd`, `/code-review`, `/plan`
+- **Rules**: See `rules/` for coding standards and conventions
+- **Hooks**: Quality gates and automation in `hooks/hooks.json`

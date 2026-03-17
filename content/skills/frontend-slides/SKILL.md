@@ -24,6 +24,7 @@ Inspired by the visual exploration approach showcased in work by zarazhangrui (c
 3. **Show, don't tell**: use visual previews instead of abstract style questionnaires.
 4. **Distinctive design**: avoid generic purple-gradient, Inter-on-white, template-looking decks.
 5. **Production quality**: keep code commented, accessible, responsive, and performant.
+6. **Company design system**: if a `company-design-system` skill exists, apply its brand colors, fonts, CSS variables, and logo to all slides. Check `skills/company-design-system/SKILL.md` before choosing colors or fonts.
 
 Before generating, read `STYLE_PRESETS.md` for the viewport-safe CSS base, density limits, preset catalog, and CSS gotchas.
 
