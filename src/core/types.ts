@@ -19,6 +19,7 @@ export interface DesignSystem {
   readonly logos: readonly LogoConfig[]
   readonly fonts: readonly FontConfig[]
   readonly colors: readonly ColorEntry[]
+  readonly examplesDir?: string
 }
 
 export interface IntegrationCategory {

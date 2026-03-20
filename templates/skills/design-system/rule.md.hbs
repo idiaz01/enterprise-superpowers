@@ -5,14 +5,31 @@ When generating any visual artifact (HTML, CSS, presentations, prototypes, diagr
 ## Quick Reference
 
 **Colors:**
+{{#if designSystem.colors.length}}
 {{#each designSystem.colors}}
 - {{this.name}}: `{{this.hex}}`
 {{/each}}
+{{else}}
+_Not configured yet._
+{{/if}}
 
 **Fonts:**
+{{#if designSystem.fonts.length}}
 {{#each designSystem.fonts}}
 - {{this.name}}{{#if this.weight}} ({{this.weight}}){{/if}}
 {{/each}}
+{{else}}
+_Not configured yet._
+{{/if}}
+
+**Logos:**
+{{#if designSystem.logos.length}}
+{{#each designSystem.logos}}
+- {{this.type}}: `assets/logos/{{this.path}}`
+{{/each}}
+{{else}}
+_Not configured yet. Add with `enterprise-superpowers update-styles`._
+{{/if}}
 
 ## Rules
 
@@ -20,3 +37,6 @@ When generating any visual artifact (HTML, CSS, presentations, prototypes, diagr
 2. Use CSS custom properties (`--color-primary`, `--color-secondary`, etc.) instead of hardcoded hex values.
 3. Include the company logo in headers, title slides, and document footers.
 4. For the complete design system with CSS variables, slide templates, and usage guidelines, refer to `skills/company-design-system/SKILL.md`.
+{{#if designSystem.examplesDir}}
+5. Review `assets/examples/` for real {{companyName}} documents — match their layout and visual patterns when generating branded content.
+{{/if}}

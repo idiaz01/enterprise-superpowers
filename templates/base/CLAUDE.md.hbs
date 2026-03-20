@@ -4,28 +4,51 @@ This project uses the **{{companyName}} Superpowers** plugin. Follow these rules
 
 ## Design System (MANDATORY)
 
-When generating **any** visual output — HTML pages, presentations, prototypes, diagrams, CSS, emails, or branded documents — you **MUST** apply the {{companyName}} design system:
+When generating **any** visual output — HTML pages, presentations, prototypes, diagrams, CSS, emails, or branded documents — you **MUST** apply the {{companyName}} design system.
 
 ### Brand Colors
 
+{{#if designSystem.colors.length}}
 {{#each designSystem.colors}}
 - **{{this.name}}**: `{{this.hex}}`
 {{/each}}
+{{else}}
+_No brand colors configured. Run `enterprise-superpowers update-styles` to add your color palette._
+{{/if}}
 
 ### Typography
 
+{{#if designSystem.fonts.length}}
 {{#each designSystem.fonts}}
-- {{this.name}}{{#if this.weight}} ({{this.weight}}){{/if}}
+- **{{this.name}}**{{#if this.weight}} ({{this.weight}}){{/if}}
 {{/each}}
+{{else}}
+_No custom fonts configured. Run `enterprise-superpowers update-styles` to add your corporate fonts._
+{{/if}}
+
+### Logos
 
 {{#if designSystem.logos.length}}
-### Logo
-
 {{#each designSystem.logos}}
-- {{this.type}}: `assets/logos/{{this.path}}`
+- **{{this.type}}**: `assets/logos/{{this.path}}`
 {{/each}}
 
-Include the company logo in headers, title slides, and document footers.
+Include the company logo in headers, title slides, and document footers. Use the primary logo for main headers and the icon variant for compact spaces (favicons, mobile, tab icons).
+{{else}}
+_No logos configured. Run `enterprise-superpowers update-styles` to add your company logo and icon/favicon._
+
+When a logo is provided, include it in headers, title slides, and document footers.
+{{/if}}
+
+{{#if designSystem.examplesDir}}
+### Brand Examples
+
+The `assets/examples/` folder contains real company documents (PDFs, PowerPoints, images, etc.) that demonstrate how the {{companyName}} design system is used in practice. **Study these examples** before generating branded content — they are your reference for layout, tone, spacing, and visual hierarchy.
+
+Files in `assets/examples/`:
+- Review these documents to understand {{companyName}}'s visual identity in real-world use
+- Match the layout patterns, whitespace, and element placement you see in these examples
+- Use them as the gold standard for branded output quality
 {{/if}}
 
 ### CSS Variables
@@ -48,7 +71,12 @@ When writing CSS or HTML, always define and use these custom properties:
 - **Never** use arbitrary colors, fonts, or logos when {{companyName}} brand assets are available.
 - **Always** check `skills/company-design-system/SKILL.md` for the full design system reference before generating visual content.
 - **Always** use the CSS variables above instead of hardcoding color values.
+{{#if designSystem.logos.length}}
 - When creating presentations, use primary color for title slides, accent for highlights, and include the logo on every slide.
+{{/if}}
+{{#if designSystem.examplesDir}}
+- **Always** review `assets/examples/` before generating branded documents to match real {{companyName}} style.
+{{/if}}
 
 ## Available Resources
 

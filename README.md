@@ -11,9 +11,10 @@ npx enterprise-superpowers init my-company
 ```
 
 This interactive command will:
-1. Ask for your company's design assets (logo, fonts, color palette)
-2. Let you select integrations — or install all (recommended, default)
-3. Generate a fully compliant Claude Code plugin with skills, agents, hooks, rules, and MCP configs
+1. Ask for your company's design assets (logo, icon/favicon, fonts, color palette)
+2. Optionally point to a folder of example documents (PDFs, PowerPoints, etc.) that showcase your brand in use
+3. Let you select integrations — or install all (recommended, default)
+4. Generate a fully compliant Claude Code plugin with skills, agents, hooks, rules, and MCP configs
 
 ## Installation
 
@@ -96,6 +97,7 @@ my-company-superpowers/
   assets/
     logos/
     fonts/
+    examples/         # branded PDFs, PPTX, images (optional)
   config/
     design-system.json
     integrations.json
@@ -126,21 +128,21 @@ Pre-configured MCP server definitions for GitHub, AWS, Terraform, Notion, Slack,
 
 Once `init` completes, follow the steps in the generated plugin's `README.md`:
 
-1. **Install the plugin** — `claude plugin add ./<company>-superpowers`
-2. **Restart Claude Code** — Close and reopen so the plugin loads
-3. **Configure MCP credentials** — Open `.mcp.json` and replace `YOUR_*_HERE` placeholders with your actual API tokens (GitHub PAT, Slack bot token, AWS profile, etc.)
-4. **Remove unused MCP servers** — Keep under 10 active to preserve context window
-5. **Review hooks** — Check `hooks/hooks.json` and disable any hooks you don't need
-6. **Test** — Run `/tdd`, `/code-review`, or `/plan` in a Claude Code session to verify
+1. **Load the plugin** — `claude --plugin-dir ./<company>-superpowers`
+2. **Configure MCP credentials** — Open `.mcp.json` and replace `YOUR_*_HERE` placeholders with your actual API tokens (GitHub PAT, Slack bot token, AWS profile, etc.)
+3. **Remove unused MCP servers** — Keep under 10 active to preserve context window
+4. **Review hooks** — Check `hooks/hooks.json` and disable any hooks you don't need
+5. **Test** — Run `/tdd`, `/code-review`, or `/plan` in a Claude Code session to verify
 
 ## Design System
 
 Enterprise Superpowers bakes your company's visual identity into every generated artifact. When Claude creates presentations, HTML prototypes, or documentation, it uses your:
 
-- **Logo** — Company logo included in generated assets
-- **Color palette** — Brand colors applied consistently
-- **Fonts** — Corporate typography enforced
-- **Style guidelines** — Design tokens for all visual outputs
+- **Logos** — Primary logo and icon/favicon stored in `assets/logos/`, included in headers, title slides, and footers
+- **Color palette** — Brand colors (primary, secondary, accent, background, text) applied consistently via CSS variables
+- **Fonts** — Corporate typography enforced across all generated content
+- **Style guidelines** — Design tokens in `config/design-system.json` for all visual outputs
+- **Brand examples** _(optional)_ — Real company documents (PDFs, PowerPoints, images) in `assets/examples/` that Claude studies to match your actual visual identity, layout patterns, and tone
 
 ## Development
 

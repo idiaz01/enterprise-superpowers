@@ -14,6 +14,7 @@ export async function generateDesignSystem(
   await generateDesignSystemSkill(projectDir, context)
   await generateDesignSystemRule(projectDir, context)
   await copyLogoFiles(projectDir, designSystem)
+  await copyExampleFiles(projectDir, designSystem)
 }
 
 async function generateDesignSystemSkill(
@@ -68,4 +69,19 @@ async function copyLogoFiles(
       await fs.copy(srcPath, destPath)
     }
   }
+}
+
+async function copyExampleFiles(
+  projectDir: string,
+  designSystem: DesignSystem,
+): Promise<void> {
+  if (!designSystem.examplesDir) return
+
+  const srcDir = designSystem.examplesDir
+  const exists = await fs.pathExists(srcDir)
+  if (!exists) return
+
+  const destDir = path.join(projectDir, 'assets', 'examples')
+  await fs.ensureDir(destDir)
+  await fs.copy(srcDir, destDir, { overwrite: true })
 }

@@ -356,6 +356,7 @@ export const GENERATED_DIRS = [
   'rules',
   'assets/logos',
   'assets/fonts',
+  'assets/examples',
   'config',
 ] as const
 

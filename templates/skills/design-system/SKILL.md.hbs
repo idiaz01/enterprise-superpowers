@@ -9,36 +9,67 @@ Use this design system whenever generating visual artifacts, presentations, HTML
 
 ## Brand Colors
 
+{{#if designSystem.colors.length}}
 | Role | Color | Hex |
 |------|-------|-----|
 {{#each designSystem.colors}}
 | {{this.name}} | <span style="background:{{this.hex}};padding:2px 12px;border-radius:3px;">&nbsp;</span> | `{{this.hex}}` |
 {{/each}}
+{{else}}
+_No brand colors configured yet. Add them with `enterprise-superpowers update-styles`._
+{{/if}}
 
 ## Typography
 
+{{#if designSystem.fonts.length}}
 {{#each designSystem.fonts}}
 - **{{this.name}}**{{#if this.weight}} ({{this.weight}}){{/if}}{{#if this.filePath}} - Font file: `assets/fonts/{{this.filePath}}`{{/if}}
 {{/each}}
+{{else}}
+_No custom fonts configured yet. Add them with `enterprise-superpowers update-styles`._
+{{/if}}
+
+## Logos
 
 {{#if designSystem.logos.length}}
-## Logo
-
 {{#each designSystem.logos}}
 - **{{this.type}}**: `assets/logos/{{this.path}}`
 {{/each}}
 
-When generating visual content, include the company logo where appropriate. Use the primary logo for main headers and the icon variant for compact spaces.
+When generating visual content, include the company logo where appropriate:
+- **Primary logo** — main headers, title slides, cover pages, email headers
+- **Icon/favicon** — compact spaces, browser tabs, mobile icons, small UI elements
+{{else}}
+_No logos configured yet. Add them with `enterprise-superpowers update-styles`._
+
+When logos are added, include them in headers, title slides, and document footers.
+{{/if}}
+
+{{#if designSystem.examplesDir}}
+## Brand Examples
+
+The `assets/examples/` folder contains real {{companyName}} documents that show how the design system is applied in practice. **You MUST review these examples** before generating any branded content.
+
+These examples demonstrate:
+- How colors, fonts, and logos are combined in real documents
+- Layout patterns, whitespace, and visual hierarchy
+- Tone and style of branded communications
+- Slide structures, report formats, and document templates
+
+**Use these examples as your reference** for matching {{companyName}}'s actual visual identity — not just the color/font values above, but the overall look and feel.
 {{/if}}
 
 ## Usage Guidelines
 
 When generating visual artifacts for {{companyName}}:
 
-1. **Always use brand colors** - Primary for headers and CTAs, secondary for body content, accent for highlights
-2. **Use specified fonts** - Apply the corporate typography consistently
-3. **Include the logo** - Place it in headers, title slides, and document footers
-4. **Maintain consistency** - All generated content should look like it came from {{companyName}}
+1. **Always use brand colors** — Primary for headers and CTAs, secondary for body content, accent for highlights
+2. **Use specified fonts** — Apply the corporate typography consistently
+3. **Include the logo** — Place it in headers, title slides, and document footers
+4. **Maintain consistency** — All generated content should look like it came from {{companyName}}
+{{#if designSystem.examplesDir}}
+5. **Match the examples** — Review `assets/examples/` and replicate the layout, spacing, and visual patterns found there
+{{/if}}
 
 ## CSS Variables
 

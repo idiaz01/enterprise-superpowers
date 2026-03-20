@@ -1,5 +1,11 @@
 import { input, confirm } from '@inquirer/prompts'
-import type { ColorEntry, DesignSystem, FontConfig, LogoConfig } from '../core/types.js'
+import fs from 'fs-extra'
+import type {
+  ColorEntry,
+  DesignSystem,
+  FontConfig,
+  LogoConfig,
+} from '../core/types.js'
 import { DEFAULT_COLORS } from '../core/constants.js'
 
 export async function collectDesignSystem(
@@ -8,12 +14,14 @@ export async function collectDesignSystem(
   const logos = await collectLogos()
   const fonts = await collectFonts()
   const colors = await collectColors()
+  const examplesDir = await collectExamples()
 
   return {
     companyName,
     logos,
     fonts,
     colors,
+    examplesDir,
   }
 }
 
@@ -36,9 +44,7 @@ async function collectLogos(): Promise<readonly LogoConfig[]> {
     default: false,
   })
 
-  const logos: LogoConfig[] = [
-    { path: logoPath.trim(), type: 'primary' },
-  ]
+  const logos: LogoConfig[] = [{ path: logoPath.trim(), type: 'primary' }]
 
   if (hasIcon) {
     const iconPath = await input({
@@ -93,6 +99,32 @@ async function collectColors(): Promise<readonly ColorEntry[]> {
   return colors
 }
 
+async function collectExamples(): Promise<string | undefined> {
+  const hasExamples = await confirm({
+    message:
+      'Do you have a folder with example documents (PDFs, PowerPoints, etc.) showing your design system in use?',
+    default: false,
+  })
+
+  if (!hasExamples) return undefined
+
+  const examplesPath = await input({
+    message:
+      'Path to examples folder (containing branded PDFs, PPTX, images, etc.):',
+    validate: async (value) => {
+      const trimmed = value.trim()
+      if (trimmed.length === 0) return 'Please enter a valid folder path'
+      const exists = await fs.pathExists(trimmed)
+      if (!exists) return `Folder not found: ${trimmed}`
+      const stat = await fs.stat(trimmed)
+      if (!stat.isDirectory()) return `Not a directory: ${trimmed}`
+      return true
+    },
+  })
+
+  return examplesPath.trim()
+}
+
 export async function updateDesignSystem(
   existing: DesignSystem,
 ): Promise<DesignSystem> {
@@ -114,10 +146,19 @@ export async function updateDesignSystem(
   })
   const colors = updateColors ? await collectColors() : existing.colors
 
+  const updateExamples = await confirm({
+    message: 'Update examples folder?',
+    default: false,
+  })
+  const examplesDir = updateExamples
+    ? await collectExamples()
+    : existing.examplesDir
+
   return {
     companyName: existing.companyName,
     logos,
     fonts,
     colors,
+    examplesDir,
   }
 }

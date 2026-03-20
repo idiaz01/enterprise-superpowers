@@ -38,17 +38,33 @@ export async function initCommand(companyName?: string): Promise<void> {
       `\n${chalk.green('Success!')} Created ${chalk.bold(projectDir)}\n`,
     )
     console.log('Next steps:\n')
-    console.log(`  1. ${chalk.cyan(`cd ${projectDir}`)}`)
-    console.log(`  2. Install as a Claude Code plugin:`)
-    console.log(`     ${chalk.cyan(`claude plugin add ./${projectDir}`)}`)
-    console.log(`\n  Or copy to your plugins folder:`)
+    console.log(`  1. Start Claude Code with the plugin loaded:`)
+    console.log(`     ${chalk.cyan(`claude --plugin-dir ./${projectDir}`)}\n`)
+    console.log(`  2. Or load multiple plugins at once:`)
     console.log(
-      `     ${chalk.cyan(`cp -r ./${projectDir} ~/.claude/plugins/`)}\n`,
+      `     ${chalk.cyan(`claude --plugin-dir ./${projectDir} --plugin-dir ./other-plugin`)}\n`,
+    )
+    console.log(
+      `  Use ${chalk.cyan('/reload-plugins')} inside a session to pick up changes without restarting.\n`,
+    )
+
+    console.log(chalk.bold('Design system:'))
+    console.log(
+      `  Colors:   ${chalk.cyan(answers.designSystem.colors.length > 0 ? answers.designSystem.colors.map((c) => c.hex).join(', ') : 'defaults')}`,
+    )
+    console.log(
+      `  Fonts:    ${chalk.cyan(answers.designSystem.fonts.length > 0 ? answers.designSystem.fonts.map((f) => f.name).join(', ') : 'not set')}`,
+    )
+    console.log(
+      `  Logos:    ${chalk.cyan(answers.designSystem.logos.length > 0 ? answers.designSystem.logos.map((l) => `${l.type} → assets/logos/`).join(', ') : 'not set')}`,
+    )
+    console.log(
+      `  Examples: ${chalk.cyan(answers.designSystem.examplesDir ? `copied to assets/examples/` : 'not set')}`,
     )
 
     if (answers.selectedIntegrations.length > 0) {
       console.log(
-        `Integrations enabled: ${chalk.cyan(answers.selectedIntegrations.join(', '))}`,
+        `\nIntegrations enabled: ${chalk.cyan(answers.selectedIntegrations.join(', '))}`,
       )
     }
 
