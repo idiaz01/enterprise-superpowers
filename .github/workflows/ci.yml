@@ -36,3 +36,15 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  ci:
+    runs-on: ubuntu-latest
+    needs: build
+    if: always()
+    steps:
+      - name: Check build matrix
+        run: |
+          if [ "${{ needs.build.result }}" != "success" ]; then
+            echo "Build matrix failed"
+            exit 1
+          fi
