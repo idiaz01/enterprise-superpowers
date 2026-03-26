@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# Setup script for {{companyName}} Superpowers
+# Registers the plugin persistently in Claude Code settings
+set -euo pipefail
+
+PLUGIN_NAME="{{companySlug}}-superpowers"
+PLUGIN_DIR="$(cd "$(dirname "$0")" && pwd)"
+SETTINGS_DIR="$HOME/.claude"
+SETTINGS_FILE="$SETTINGS_DIR/settings.json"
+
+echo ""
+echo "{{companyName}} Superpowers — Plugin Setup"
+echo "==========================================="
+echo ""
+
+# Ensure ~/.claude directory exists
+mkdir -p "$SETTINGS_DIR"
+
+# Create settings.json if it doesn't exist
+if [ ! -f "$SETTINGS_FILE" ]; then
+  echo '{}' > "$SETTINGS_FILE"
+fi
+
+# Check if node is available for JSON manipulation
+if ! command -v node &> /dev/null; then
+  echo "Error: Node.js is required to run this setup script."
+  echo ""
+  echo "Alternative: load the plugin manually per session:"
+  echo "  claude --plugin-dir $PLUGIN_DIR"
+  exit 1
+fi
+
+# Use Node.js to safely merge settings
+node -e "
+const fs = require('fs');
+const settingsPath = '$SETTINGS_FILE';
+
+let settings = {};
+try {
+  settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
+} catch (e) {
+  settings = {};
+}
+
+// Register inline marketplace
+if (!settings.extraKnownMarketplaces) {
+  settings.extraKnownMarketplaces = {};
+}
+
+settings.extraKnownMarketplaces['$PLUGIN_NAME'] = {
+  source: {
+    source: 'settings',
+    name: '$PLUGIN_NAME',
+    plugins: [{
+      name: '$PLUGIN_NAME',
+      source: {
+        source: 'local',
+        path: '$PLUGIN_DIR'
+      }
+    }]
+  }
+};
+
+// Enable the plugin
+if (!settings.enabledPlugins) {
+  settings.enabledPlugins = {};
+}
+settings.enabledPlugins['$PLUGIN_NAME@$PLUGIN_NAME'] = true;
+
+fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2) + '\n');
+"
+
+echo "Done! Plugin registered persistently."
+echo ""
+echo "  Plugin:   $PLUGIN_NAME"
+echo "  Location: $PLUGIN_DIR"
+echo "  Settings: $SETTINGS_FILE"
+echo ""
+echo "The plugin will now load automatically in every Claude Code session."
+echo ""
+echo "To uninstall, run:"
+echo "  bash $PLUGIN_DIR/uninstall.sh"
+echo ""
+echo "For team distribution, push to GitHub and register as a marketplace:"
+echo "  /plugin marketplace add your-org/$PLUGIN_NAME"
+echo ""

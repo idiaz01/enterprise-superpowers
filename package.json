@@ -1,6 +1,6 @@
 {
   "name": "enterprise-superpowers",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "CLI tool that scaffolds AI coding assistant plugins for enterprise teams. Generate Claude Code plugins with company branding, integrations, and enterprise-ready defaults.",
   "type": "module",
   "bin": {

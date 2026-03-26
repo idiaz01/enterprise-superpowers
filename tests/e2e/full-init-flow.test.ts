@@ -34,6 +34,7 @@ describe('Full init flow (e2e)', () => {
       companyName: 'Acme Corp',
       companySlug: 'acme-corp',
       designSystem: createTestDesignSystem(),
+      enterpriseSkills: [],
       selectedIntegrations: ['jira', 'security'],
       outputDir: tmpDir,
     })
@@ -114,6 +115,7 @@ describe('Full init flow (e2e)', () => {
       companyName: 'Minimal Corp',
       companySlug: 'minimal-corp',
       designSystem: createTestDesignSystem(),
+      enterpriseSkills: [],
       selectedIntegrations: [],
       outputDir: tmpDir,
     })
@@ -148,6 +150,7 @@ describe('Full init flow (e2e)', () => {
       companyName: 'Full Corp',
       companySlug: 'full-corp',
       designSystem: createTestDesignSystem(),
+      enterpriseSkills: [],
       selectedIntegrations: ['jira', 'aws', 'git', 'security', 'frontend'],
       outputDir: tmpDir,
     })
@@ -191,6 +194,7 @@ describe('Full init flow (e2e)', () => {
         ...createTestDesignSystem(),
         companyName: 'XYZ Industries',
       },
+      enterpriseSkills: [],
       selectedIntegrations: ['jira'],
       outputDir: tmpDir,
     })

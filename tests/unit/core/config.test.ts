@@ -24,6 +24,7 @@ function createTestConfig(): ProjectConfig {
       fonts: [],
       colors: [{ name: 'primary', hex: '#0066CC' }],
     },
+    enterpriseSkills: [],
     enabledIntegrations: ['jira', 'aws'],
     version: '0.1.0',
     generatedAt: '2026-03-17',

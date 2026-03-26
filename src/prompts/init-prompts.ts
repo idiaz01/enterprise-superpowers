@@ -1,17 +1,19 @@
 import { input, checkbox, confirm } from '@inquirer/prompts'
 import { collectDesignSystem } from '../design-system/collector.js'
+import { collectEnterpriseSkills } from '../enterprise-skills/collector.js'
 import {
   getAvailableIntegrations,
   getGroupedIntegrations,
   getCategories,
   isInstallerAvailable,
 } from '../integrations/registry.js'
-import type { DesignSystem } from '../core/types.js'
+import type { DesignSystem, EnterpriseSkill } from '../core/types.js'
 import { toSlug } from '../core/config.js'
 
 export interface InitAnswers {
   readonly companyName: string
   readonly companySlug: string
+  readonly enterpriseSkills: readonly EnterpriseSkill[]
   readonly designSystem: DesignSystem
   readonly selectedIntegrations: readonly string[]
 }
@@ -32,6 +34,8 @@ export async function promptInit(
     `\nSetting up ${companyName} Superpowers (${companySlug}-superpowers)\n`,
   )
 
+  const enterpriseSkills = await collectEnterpriseSkills()
+
   const designSystem = await collectDesignSystem(companyName)
 
   const selectedIntegrations = await promptIntegrations()
@@ -39,6 +43,7 @@ export async function promptInit(
   return {
     companyName,
     companySlug,
+    enterpriseSkills,
     designSystem,
     selectedIntegrations,
   }
