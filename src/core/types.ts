@@ -22,6 +22,12 @@ export interface DesignSystem {
   readonly examplesDir?: string
 }
 
+export interface EnterpriseSkill {
+  readonly name: string
+  readonly sourcePath: string
+  readonly isDirectory: boolean
+}
+
 export interface IntegrationCategory {
   readonly id: string
   readonly name: string
@@ -70,6 +76,7 @@ export interface ProjectConfig {
   readonly companyName: string
   readonly companySlug: string
   readonly designSystem: DesignSystem
+  readonly enterpriseSkills: readonly string[]
   readonly enabledIntegrations: readonly string[]
   readonly version: string
   readonly generatedAt: string

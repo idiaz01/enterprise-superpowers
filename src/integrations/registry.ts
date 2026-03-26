@@ -37,6 +37,13 @@ const installerLoaders: ReadonlyMap<string, InstallerLoader> = new Map([
     'golang',
     () => import('./golang/installer.js').then((m) => m.golangInstaller),
   ],
+  ['rust', () => import('./rust/installer.js').then((m) => m.rustInstaller)],
+  [
+    'kotlin',
+    () => import('./kotlin/installer.js').then((m) => m.kotlinInstaller),
+  ],
+  ['swift', () => import('./swift/installer.js').then((m) => m.swiftInstaller)],
+  ['cpp', () => import('./cpp/installer.js').then((m) => m.cppInstaller)],
   [
     'devops',
     () => import('./devops/installer.js').then((m) => m.devopsInstaller),
@@ -94,6 +101,10 @@ const installerLoaders: ReadonlyMap<string, InstallerLoader> = new Map([
         (m) => m.visualCompanionInstaller,
       ),
   ],
+  [
+    'flutter',
+    () => import('./flutter/installer.js').then((m) => m.flutterInstaller),
+  ],
 
   // Backend
   [
@@ -108,6 +119,10 @@ const installerLoaders: ReadonlyMap<string, InstallerLoader> = new Map([
     'java-spring',
     () =>
       import('./java-spring/installer.js').then((m) => m.javaSpringInstaller),
+  ],
+  [
+    'laravel',
+    () => import('./laravel/installer.js').then((m) => m.laravelInstaller),
   ],
 
   // Data

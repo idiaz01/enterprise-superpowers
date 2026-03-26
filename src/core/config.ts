@@ -9,7 +9,11 @@ export async function readProjectConfig(
   const configPath = path.join(projectDir, CONFIG_FILE)
   const exists = await fs.pathExists(configPath)
   if (!exists) return null
-  return fs.readJson(configPath) as Promise<ProjectConfig>
+  const raw = await fs.readJson(configPath)
+  return {
+    ...raw,
+    enterpriseSkills: raw.enterpriseSkills ?? [],
+  } as ProjectConfig
 }
 
 export async function writeProjectConfig(

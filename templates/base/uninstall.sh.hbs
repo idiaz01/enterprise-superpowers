@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# Uninstall script for {{companyName}} Superpowers
+# Removes the plugin registration from Claude Code settings
+set -euo pipefail
+
+PLUGIN_NAME="{{companySlug}}-superpowers"
+SETTINGS_FILE="$HOME/.claude/settings.json"
+
+echo ""
+echo "{{companyName}} Superpowers — Plugin Uninstall"
+echo "================================================"
+echo ""
+
+if [ ! -f "$SETTINGS_FILE" ]; then
+  echo "No settings file found at $SETTINGS_FILE. Nothing to uninstall."
+  exit 0
+fi
+
+if ! command -v node &> /dev/null; then
+  echo "Error: Node.js is required to run this uninstall script."
+  echo "Manually remove the '$PLUGIN_NAME' entries from $SETTINGS_FILE"
+  exit 1
+fi
+
+node -e "
+const fs = require('fs');
+const settingsPath = '$SETTINGS_FILE';
+
+let settings = {};
+try {
+  settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
+} catch (e) {
+  console.log('Could not parse settings file.');
+  process.exit(1);
+}
+
+// Remove marketplace registration
+if (settings.extraKnownMarketplaces && settings.extraKnownMarketplaces['$PLUGIN_NAME']) {
+  delete settings.extraKnownMarketplaces['$PLUGIN_NAME'];
+  if (Object.keys(settings.extraKnownMarketplaces).length === 0) {
+    delete settings.extraKnownMarketplaces;
+  }
+}
+
+// Remove enabled plugin
+if (settings.enabledPlugins && settings.enabledPlugins['$PLUGIN_NAME@$PLUGIN_NAME'] !== undefined) {
+  delete settings.enabledPlugins['$PLUGIN_NAME@$PLUGIN_NAME'];
+  if (Object.keys(settings.enabledPlugins).length === 0) {
+    delete settings.enabledPlugins;
+  }
+}
+
+fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2) + '\n');
+"
+
+echo "Done! Plugin '$PLUGIN_NAME' has been unregistered."
+echo ""
+echo "Settings updated: $SETTINGS_FILE"
+echo "The plugin directory has NOT been deleted. Remove it manually if desired."
+echo ""

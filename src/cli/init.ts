@@ -27,6 +27,7 @@ export async function initCommand(companyName?: string): Promise<void> {
     await generatePlugin({
       companyName: answers.companyName,
       companySlug: answers.companySlug,
+      enterpriseSkills: answers.enterpriseSkills,
       designSystem: answers.designSystem,
       selectedIntegrations: answers.selectedIntegrations,
       outputDir,
@@ -38,15 +39,27 @@ export async function initCommand(companyName?: string): Promise<void> {
       `\n${chalk.green('Success!')} Created ${chalk.bold(projectDir)}\n`,
     )
     console.log('Next steps:\n')
-    console.log(`  1. Start Claude Code with the plugin loaded:`)
+    console.log(`  1. Install the plugin persistently:`)
+    console.log(`     ${chalk.cyan(`cd ${projectDir} && bash setup.sh`)}\n`)
+    console.log(`  2. Or load for this session only:`)
     console.log(`     ${chalk.cyan(`claude --plugin-dir ./${projectDir}`)}\n`)
-    console.log(`  2. Or load multiple plugins at once:`)
     console.log(
-      `     ${chalk.cyan(`claude --plugin-dir ./${projectDir} --plugin-dir ./other-plugin`)}\n`,
+      `  3. For team distribution, push to GitHub and register as a marketplace:`,
+    )
+    console.log(
+      `     ${chalk.cyan(`/plugin marketplace add your-org/${projectDir}`)}\n`,
     )
     console.log(
       `  Use ${chalk.cyan('/reload-plugins')} inside a session to pick up changes without restarting.\n`,
     )
+
+    if (answers.enterpriseSkills.length > 0) {
+      console.log(chalk.bold('Enterprise skills:'))
+      console.log(
+        `  Imported: ${chalk.cyan(answers.enterpriseSkills.map((s) => s.name).join(', '))}`,
+      )
+      console.log()
+    }
 
     console.log(chalk.bold('Design system:'))
     console.log(

@@ -1,6 +1,6 @@
 import type { IntegrationCategory, IntegrationMeta } from './types.js'
 
-export const VERSION = '0.2.0'
+export const VERSION = '0.3.0'
 
 export const INTEGRATION_CATEGORIES: readonly IntegrationCategory[] = [
   {
@@ -145,6 +145,38 @@ export const INTEGRATIONS: readonly IntegrationMeta[] = [
     components: ['skill', 'agent', 'command', 'rule'],
   },
   {
+    id: 'rust',
+    name: 'Rust',
+    category: 'development',
+    description:
+      'Rust patterns, testing, code review, and build resolution for safe, performant systems programming',
+    components: ['skill', 'agent'],
+  },
+  {
+    id: 'kotlin',
+    name: 'Kotlin',
+    category: 'development',
+    description:
+      'Kotlin patterns, coroutines, Ktor, Exposed ORM, Compose Multiplatform, testing, and Android clean architecture',
+    components: ['skill', 'agent'],
+  },
+  {
+    id: 'swift',
+    name: 'Swift',
+    category: 'development',
+    description:
+      'SwiftUI patterns, Swift concurrency, actor persistence, protocol-based DI, and Liquid Glass design',
+    components: ['skill'],
+  },
+  {
+    id: 'cpp',
+    name: 'C++',
+    category: 'development',
+    description:
+      'C++ Core Guidelines, testing with GoogleTest/CTest, build resolution, and code review',
+    components: ['skill', 'agent'],
+  },
+  {
     id: 'language-servers',
     name: 'Language Servers',
     category: 'development',
@@ -202,6 +234,14 @@ export const INTEGRATIONS: readonly IntegrationMeta[] = [
     description: 'Browser-based visualization and interactive prototyping',
     components: ['skill'],
   },
+  {
+    id: 'flutter',
+    name: 'Flutter',
+    category: 'frontend',
+    description:
+      'Flutter/Dart code review, patterns, and best practices for cross-platform mobile development',
+    components: ['skill', 'agent'],
+  },
 
   // Backend
   {
@@ -226,6 +266,14 @@ export const INTEGRATIONS: readonly IntegrationMeta[] = [
     category: 'backend',
     description:
       'Java coding standards, JPA patterns, Spring Boot architecture, security, and TDD',
+    components: ['skill', 'agent'],
+  },
+  {
+    id: 'laravel',
+    name: 'Laravel',
+    category: 'backend',
+    description:
+      'Laravel patterns, security, TDD, and verification workflows for PHP web applications',
     components: ['skill'],
   },
 
@@ -316,6 +364,10 @@ export const MVP_INTEGRATION_IDS = [
   'iac',
   'git',
   'golang',
+  'rust',
+  'kotlin',
+  'swift',
+  'cpp',
   'devops',
   'pr-mr',
   'language-servers',
@@ -325,9 +377,11 @@ export const MVP_INTEGRATION_IDS = [
   'frontend',
   'frontend-slides',
   'visual-companion',
+  'flutter',
   'backend',
   'django',
   'java-spring',
+  'laravel',
   'databases',
   'snowflake',
   'sap',

@@ -2,6 +2,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import type {
   DesignSystem,
+  EnterpriseSkill,
   IntegrationMeta,
   ProjectConfig,
   TemplateContext,
@@ -17,6 +18,7 @@ export interface GenerateOptions {
   readonly companyName: string
   readonly companySlug: string
   readonly designSystem: DesignSystem
+  readonly enterpriseSkills: readonly EnterpriseSkill[]
   readonly selectedIntegrations: readonly string[]
   readonly outputDir: string
 }
@@ -42,6 +44,7 @@ export async function generatePlugin(
 
   await createDirectoryStructure(projectDir)
   await renderBaseTemplates(projectDir, context)
+  await copyEnterpriseSkills(projectDir, options.enterpriseSkills)
   await generateDesignSystem(projectDir, options.designSystem, context)
   await installIntegrations(
     projectDir,
@@ -106,6 +109,32 @@ async function renderBaseTemplates(
     path.join(projectDir, 'CLAUDE.md'),
     context,
   )
+
+  await renderTemplateFile(
+    path.join(templatesDir, 'setup.sh.hbs'),
+    path.join(projectDir, 'setup.sh'),
+    context,
+  )
+
+  await renderTemplateFile(
+    path.join(templatesDir, 'uninstall.sh.hbs'),
+    path.join(projectDir, 'uninstall.sh'),
+    context,
+  )
+}
+
+async function copyEnterpriseSkills(
+  projectDir: string,
+  skills: readonly EnterpriseSkill[],
+): Promise<void> {
+  if (skills.length === 0) return
+
+  const skillsDir = path.join(projectDir, 'skills')
+
+  for (const skill of skills) {
+    const destDir = path.join(skillsDir, skill.name)
+    await fs.copy(skill.sourcePath, destDir, { overwrite: false })
+  }
 }
 
 async function installIntegrations(
@@ -138,6 +167,7 @@ async function writeProjectConfigFile(
     companyName: options.companyName,
     companySlug: options.companySlug,
     designSystem: options.designSystem,
+    enterpriseSkills: options.enterpriseSkills.map((s) => s.name),
     enabledIntegrations: [...options.selectedIntegrations],
     version: VERSION,
     generatedAt: context.generatedAt,
